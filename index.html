@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>DJ Random quote machine</title>
+  </head>
+  <body>
+
+    <div style="height: 200px; width:200px;" class="quotes">
+      <p>
+        HERE I AM IN THE FLESH
+      </p>
+      <button id="quoter">New Quote</button>
+      <button id="tweeter">Tweet quote</button>
+
+    </div>
+
+    <style>
+
+    </style>
+
+    <script>
+      const randomButton = document.querySelector('#quoter');
+      const tweetButton = document.querySelector('#tweeter');
+      const paragraph = document.querySelector('p');
+      let tweet = '';
+      const quotes = ['quote one', 'quote two', 'quote three'];
+
+
+
+      randomButton.addEventListener('click', function() {
+        const randomNum = Math.floor( Math.random() * quotes.length);
+        paragraph.innerHTML = quotes[randomNum];
+        tweet = paragraph.innerHTML;
+      });
+
+
+      tweetButton.addEventListener('click', function() {
+
+      });
+
+    </script>
+  </body>
+</html>
