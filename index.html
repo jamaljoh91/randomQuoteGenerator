@@ -3,16 +3,24 @@
   <head>
     <meta charset="utf-8">
     <title>DJ Random quote machine</title>
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"></script>
   </head>
   <body>
 
-    <div style="height: 200px; width:200px;" class="quotes">
-      <p>
-        HERE I AM IN THE FLESH
-      </p>
-      <button id="quoter">New Quote</button>
-      <button id="tweeter">Tweet quote</button>
+    <div class="quotes">
+      <p id="quote">I am the quote</p>
+      <p id="quoteAuthor">I am the author</p>
 
+      <label for="select">Select philosopher or view a random quote!</label>
+      <select id="selectAuthor" name="select">
+        <option value="select">Select Author</option>
+      </select><br />
+
+      <button id="quoter">New Quote</button>
+      <button><a id="tweeter" href="https://twitter.com/share" class="twitter-share-button" data-hashtags="djquoter" data-size="large">Share Quote</a></button>
     </div>
 
     <style>
@@ -20,25 +28,64 @@
     </style>
 
     <script>
+    $(document).ready(function() {
+
       const randomButton = document.querySelector('#quoter');
       const tweetButton = document.querySelector('#tweeter');
-      const paragraph = document.querySelector('p');
-      let tweet = '';
-      const quotes = ['quote one', 'quote two', 'quote three'];
+      const quote = document.querySelector('#quote');
+      const quoteAuthor = document.querySelector('#quoteAuthor');
+      const selectAuthor = document.querySelector('#selectAuthor');
+      const tweetHref = 'https://twitter.com/share?hashtags=djquoter&text=';
 
+      const philosophers = [
+        {name: 'random 1', quotes: ['quote 1', 'quote 2']},
+        {name: 'random 2', quotes: ['quote 3', 'quote 4']},
+        {name: 'random 3', quotes: ['quote 5', 'quote 6']}
+      ]
 
+      philosophers.forEach(phil => {
+        selectAuthor.options[selectAuthor.options.length] = new Option(phil.name, phil.name);
+      })
 
-      randomButton.addEventListener('click', function() {
-        const randomNum = Math.floor( Math.random() * quotes.length);
-        paragraph.innerHTML = quotes[randomNum];
-        tweet = paragraph.innerHTML;
+      let selectedAuthor = "select";
+
+      function randomizer() {
+        const randomAuthor = Math.floor(Math.random() * philosophers.length);
+         quoteAuthor.innerHTML = philosophers[randomAuthor].name;
+         const randomQuote = Math.floor(Math.random() * philosophers[randomAuthor].quotes.length);
+         quote.innerHTML = philosophers[randomAuthor].quotes[randomQuote];
+      }
+
+      function filteredRandomizer(selectedAuthor) {
+        if (selectedAuthor === "select") return;
+        let filteredPhil = philosophers.filter(phil => {
+          return phil.name === selectedAuthor;
+        });
+        quoteAuthor.innerHTML = filteredPhil[0].name;
+        const randomQuote = Math.floor(Math.random() * filteredPhil[0].quotes.length);
+        quote.innerHTML = filteredPhil[0].quotes[randomQuote];
+      }
+
+      function tweetMe() {
+       let tweet = quote.innerHTML;
+       let author = quoteAuthor.innerHTML;
+       tweetButton.href = `${tweetHref} ${tweet} -${author}`; /*Template Strings in action!!!! thanks js30*/
+       $.getScript('https://platform.twitter.com/widgets.js');
+     }
+
+      selectAuthor.addEventListener('change', function() {
+       selectedAuthor = selectAuthor.options[selectAuthor.selectedIndex].value
       });
 
-
-      tweetButton.addEventListener('click', function() {
-
+      randomButton.addEventListener('click', () => {
+        selectedAuthor === "select" ? randomizer():filteredRandomizer(selectedAuthor);
       });
+
+      tweetButton.addEventListener('click', tweetMe);
+
+    })
 
     </script>
+
   </body>
 </html>
