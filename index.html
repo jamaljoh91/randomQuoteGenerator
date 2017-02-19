@@ -3,131 +3,35 @@
   <head>
     <meta charset="utf-8">
     <title>DJ Random quote machine</title>
-    <script
-      src="https://code.jquery.com/jquery-3.1.1.min.js"
-      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-      crossorigin="anonymous"></script>
-  </head>
+
+      <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link href="https://fonts.googleapis.com/css?family=Alegreya:400,700" rel="stylesheet">
+      <link rel="stylesheet" type="text/css" href="css/rqm.css">
+    </head>
+
   <body>
 
-    <div class="container">
       <div class="quotes">
-        <p id="quote">I am the quote</p>
-        <p id="quoteAuthor">I am the author</p>
+        <p id="quote" class="center">I am the quote</p>
+        <p id="quoteAuthor" class="center">I am the author</p>
 
-        <label for="select">Select philosopher or view a random quote!</label>
-        <select id="selectAuthor" name="select">
-          <option value="select">Select Author</option>
-        </select><br />
+        <div id="selectSection">
+            <label for="select">Pick your author!</label>
+            <select id="selectAuthor" name="select">
+              <option value="select">Select Author</option>
+            </select>
+        </div>
 
-        <button id="quoter">New Quote</button>
-        <button class="tweets"><a id="tweeter" href="https://twitter.com/share" class="twitter-share-button" data-hashtags="djquoter" data-size="large">Share Quote</a></button>
+        <div class="button-area-line">
+          <button id="quoter">New Quote</button>
+          <a id="tweeter" href="https://twitter.com/share" class="fa fa-twitter" data-hashtags="djquoter" data-size="large"></a>
+        </div>
+
       </div>
-    </div>
 
-    <style>
-
-    body {
-      background: #ff4b1f; /* fallback for old browsers */
-      background: -webkit-linear-gradient(to left, #ff4b1f , #1fddff); /* Chrome 10-25, Safari 5.1-6 */
-      background: linear-gradient(to left, #ff4b1f , #1fddff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    }
-
-    #quote {
-      padding: 10px;
-    }
-
-    #quoter {
-      border: 5px solid green;
-    }
-
-    .quotes {
-      border: 5px solid red;
-      background:red;
-      flex-direction: column;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 100px auto 0 auto;
-      width: 50vw;
-    }
-
-    .tweets {
-      align-self: flex-end;
-    }
-
-    </style>
-
-    <script>
-    $(document).ready(function() {
-
-      const randomButton = document.querySelector('#quoter');
-      const tweetButton = document.querySelector('#tweeter');
-      const quote = document.querySelector('#quote');
-      const quoteAuthor = document.querySelector('#quoteAuthor');
-      const selectAuthor = document.querySelector('#selectAuthor');
-      const tweetHref = 'https://twitter.com/share?hashtags=djquoter&text=';
-
-      const philosophers = [
-        {name: 'Aristotle',
-        quotes: ['The roots of education are bitter, but the fruit is sweet.', 'It is the mark of an educated mind to be able to entertain a thought without accepting it.', 'There is no great genius without some touch of madness.', 'What it lies in our power to do, it lies in our power not to do.',
-         'Pleasure in the job puts perfection in the work.', 'The energy of the mind is the essence of life.', 'The aim of art is to represent not the outward appearance of things, but their inward significance.',
-          'Courage is the first of human qualities because it is the quality which guarantees the others.', 'Those that know, do. Those that understand, teach.', 'The greatest virtues are those which are most useful to other persons.']},
-
-        {name: 'Bruce Lee',
-        quotes: ['Always be yourself, express yourself, have faith in yourself, do not go out and look for a successful personality and duplicate it.', 'If you love life, don\'t waste time, for time is what life is made up of.', 'A wise man can learn more from a foolish question than a fool can learn from a wise answer.', 'I fear not the man who has practiced 10,000 kicks once, but I fear the man who has practiced one kick 10,000 times.',
-         'If you spend too much time thinking about a thing, you\'ll never get it done.', 'Notice that the stiffest tree is most easily cracked, while the bamboo or willow survives by bending with the wind.', 'As you think, so shall you become.',
-          'Knowing is not enough; We must apply. Willing is not enough; We must do.', 'Defeat is a state of mind; No one is ever defeated until defeat has been accepted as a reality.', 'Those who are unaware they are walking in darkness will never seek the light.']},
-
-        {name: 'Martin Luther King Jr',
-         quotes: ['Darkness cannot drive out darkness; only light can do that. Hate cannot drive out hate; only love can do that.', 'The time is always right to do what is right.', 'Injustice anywhere is a threat to justice everywhere.', 'We must accept finite disappointment, but never lose infinite hope.', 'Nothing in all the world is more dangerous than sincere ignorance and conscientious stupidity.',
-          'Our lives begin to end the day we become silent about things that matter.', 'The ultimate measure of a man is not where he stands in moments of comfort and convenience, but where he stands at times of challenge and controversy.', 'The ultimate tragedy is not the oppression and cruelty by the bad people but the silence over that by the good people.',
-           'A riot is the language of the unheard', 'All progress is precarious, and the solution of one problem brings us face to face with another problem.']}
-      ]
-
-      philosophers.forEach(phil => {
-        selectAuthor.options[selectAuthor.options.length] = new Option(phil.name, phil.name);
-      })
-
-      let selectedAuthor = "select";
-
-      function randomizer() {
-        const randomAuthor = Math.floor(Math.random() * philosophers.length);
-         quoteAuthor.innerHTML = philosophers[randomAuthor].name;
-         const randomQuote = Math.floor(Math.random() * philosophers[randomAuthor].quotes.length);
-         quote.innerHTML = philosophers[randomAuthor].quotes[randomQuote];
-      }
-
-      function filteredRandomizer(selectedAuthor) {
-        if (selectedAuthor === "select") return;
-        let filteredPhil = philosophers.filter(phil => {
-          return phil.name === selectedAuthor;
-        });
-        quoteAuthor.innerHTML = filteredPhil[0].name;
-        const randomQuote = Math.floor(Math.random() * filteredPhil[0].quotes.length);
-        quote.innerHTML = filteredPhil[0].quotes[randomQuote];
-      }
-
-      function tweetMe() {
-       let tweet = quote.innerHTML;
-       let author = quoteAuthor.innerHTML;
-       tweetButton.href = `${tweetHref} ${tweet} -${author}`; /*Template Strings in action!!!! thanks js30*/
-       $.getScript('https://platform.twitter.com/widgets.js');
-     }
-
-      selectAuthor.addEventListener('change', function() {
-       selectedAuthor = selectAuthor.options[selectAuthor.selectedIndex].value
-      });
-
-      randomButton.addEventListener('click', () => {
-        selectedAuthor === "select" ? randomizer():filteredRandomizer(selectedAuthor);
-      });
-
-      tweetButton.addEventListener('click', tweetMe);
-
-    })
-
-    </script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="scripts/rqm.js"></script>
 
   </body>
 </html>
