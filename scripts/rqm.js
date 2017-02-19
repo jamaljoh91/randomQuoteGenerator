@@ -1,5 +1,3 @@
-$(document).ready(function() {
-
     const randomButton = document.querySelector('#quoter');
     const tweetButton = document.querySelector('#tweeter');
     const quote = document.querySelector('#quote');
@@ -77,5 +75,3 @@ $(document).ready(function() {
     tweetButton.addEventListener('click', tweetMe);
 
     window.onload = randomizer;
-
-})
