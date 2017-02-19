@@ -1,0 +1,105 @@
+body {
+    background: #141E30;/* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #141E30, #243B55);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #141E30, #243B55);  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    font-family: 'Alegreya', serif;
+}
+
+.center {
+    text-align: center;
+}
+
+label {
+    display: block;
+    text-align: center;
+    padding-bottom: 10px;
+    font-size: 1.2em;
+}
+
+select {
+    display: block;
+    margin: 0 auto;
+}
+
+#selectSection {
+    width: 100%;
+    margin: 0 auto;
+}
+
+#quote {
+    padding: 10px;
+    font-size: 3em;
+    font-weight: bold;
+}
+
+#quoteAuthor {
+    margin-left: 100px;
+    font-size: 1.5em;
+}
+
+#quoter {
+    background-color: #141E30;
+    -moz-border-radius: 28px;
+    -webkit-border-radius: 28px;
+    border-radius: 28px;
+    border: 1px solid #141E30;
+    color: #ffffff;
+    padding: 5px;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #141E30;
+}
+
+#quoter:focus {
+    outline-style: none;
+}
+
+.quotes {
+    border: 5px solid #000;
+    background: #FFCC00;
+    margin: 100px auto 0 auto;
+    width: 40vw;
+}
+
+.button-area-line {
+    margin: 10px auto;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    -moz-flex-direction: row;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+    max-width: 90%;
+    a {
+        padding: 1em;
+        font-size: .9em;
+        margin: .3em;
+        color: white;
+        text-decoration: none;
+        flex-grow: 1;
+        text-align: center;
+    }
+}
+
+.fa-twitter {
+    font-size: 2em;
+}
+
+a.fa-twitter:hover {
+    text-decoration: none;
+}
+
+.fa-comment {
+    -webkit-transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg);
+    -o-transform: rotateY(180deg);
+    -ms-transform: rotateY(180deg);
+    display: inline-block;
+    position: relative;
+    margin-right: 3px;
+    top: -8px;
+}
